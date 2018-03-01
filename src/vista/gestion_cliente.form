@@ -154,6 +154,9 @@
               </Table>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tabla_clienteMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -161,6 +164,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="ALTA"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="boton_altaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="boton_baja">
       <Properties>
@@ -182,6 +188,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="SALIR"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="boton_salirActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

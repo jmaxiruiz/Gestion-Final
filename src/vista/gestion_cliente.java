@@ -5,6 +5,10 @@
  */
 package vista;
 
+import controlador.Controlador_Cliente;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -18,8 +22,10 @@ public class gestion_cliente extends javax.swing.JFrame {
    //ESTE MODELO ME SIRVE PARA TRABJAR CON LA TABLA CLIENTE DE LA VISTA. 
    private DefaultTableModel modelo = new DefaultTableModel();
     
-    public gestion_cliente() {
+    public gestion_cliente() throws SQLException {
         initComponents();
+        this.getTxt_id().setEnabled(false);
+        Controlador_Cliente.ActualizarCliente(this);
     }
 
     public DefaultTableModel getModelo() {
@@ -117,9 +123,19 @@ public class gestion_cliente extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tabla_cliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabla_clienteMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabla_cliente);
 
         boton_alta.setText("ALTA");
+        boton_alta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton_altaActionPerformed(evt);
+            }
+        });
 
         boton_baja.setText("BAJA");
         boton_baja.addActionListener(new java.awt.event.ActionListener() {
@@ -136,6 +152,11 @@ public class gestion_cliente extends javax.swing.JFrame {
         });
 
         boton_salir.setText("SALIR");
+        boton_salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton_salirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -210,12 +231,32 @@ public class gestion_cliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void boton_bajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_bajaActionPerformed
-        // TODO add your handling code here:
+       try {
+           Controlador_Cliente.EliminarCliente(this);
+       } catch (SQLException ex) {
+           Logger.getLogger(gestion_cliente.class.getName()).log(Level.SEVERE, null, ex);
+       }
     }//GEN-LAST:event_boton_bajaActionPerformed
 
     private void boton_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_modificarActionPerformed
-        // TODO add your handling code here:
+       try {
+           Controlador_Cliente.EditarCliente(this);
+       } catch (SQLException ex) {
+           Logger.getLogger(gestion_cliente.class.getName()).log(Level.SEVERE, null, ex);
+       }
     }//GEN-LAST:event_boton_modificarActionPerformed
+
+    private void boton_altaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_altaActionPerformed
+        Controlador_Cliente.AltasCliente(this);
+    }//GEN-LAST:event_boton_altaActionPerformed
+
+    private void tabla_clienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_clienteMouseClicked
+        Controlador_Cliente.Mostrar(this);
+    }//GEN-LAST:event_tabla_clienteMouseClicked
+
+    private void boton_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_salirActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_boton_salirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -247,7 +288,11 @@ public class gestion_cliente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new gestion_cliente().setVisible(true);
+                try {
+                    new gestion_cliente().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(gestion_cliente.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
