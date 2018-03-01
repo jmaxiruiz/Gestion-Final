@@ -26,7 +26,8 @@ public class Controlador_Cliente {
         vista.getModelo().addColumn("Direccion");
         ResultSet r = cliente.listarCliente();
         while (r.next()) {
-            Object[] fila = new Object[5];
+            Object[] fila = new Object[4];
+            //Nombre de los Atributos de la Tabla de la BD
             fila[0] = r.getString("idCliente");
             fila[1] = r.getString("nombre");
             fila[2] = r.getString("telefono");
@@ -56,6 +57,7 @@ public class Controlador_Cliente {
             System.out.println("AGREGANDO CLIENTE");
             cliente.grabarCliente();
             ActualizarCliente(vista);
+            LimpiarCampos(vista);
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(vista, "Datos mal ingresados", "Mensaje de Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -75,6 +77,7 @@ public class Controlador_Cliente {
                 System.out.println("MODIFICANDO CLIENTE");
                 cliente.editarCliente();
                 ActualizarCliente(vista);
+                LimpiarCampos(vista);
             }
         }else{
             JOptionPane.showMessageDialog(vista, "Debe seleccionar un Cliente", "Mensaje de Error", JOptionPane.ERROR_MESSAGE);
@@ -89,11 +92,19 @@ public class Controlador_Cliente {
                 cliente = new Cliente();
                 cliente.setIdcliente(Integer.parseInt(vista.getTabla_cliente().getModel().getValueAt(fila, 0).toString()));
                 cliente.eliminarCliente();
- 
+                ActualizarCliente(vista);
+                LimpiarCampos(vista);
             }
         } else {
             JOptionPane.showMessageDialog(vista, "Debe seleccionar un Cliente", "Mensaje de Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    public static void LimpiarCampos(gestion_cliente vista){
+        vista.getTxt_id().setText("");
+        vista.getTxt_nombre().setText("");
+        vista.getTxt_telefono().setText("");
+        vista.getTxt_direccion().setText("");
     }
     
 }
