@@ -13,6 +13,9 @@ public class Final_Gestion_Tienda {
     public static void main(String[] args) {
         System.out.println("Hola");
         System.out.println("Chau");
+                System.out.println("Chau");
+
+         
     }
     
 }
