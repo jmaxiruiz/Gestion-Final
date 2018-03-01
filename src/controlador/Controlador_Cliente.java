@@ -16,6 +16,7 @@ public class Controlador_Cliente {
     private static Cliente cliente;
     
     public static void ActualizarCliente(gestion_cliente vista) throws SQLException {
+        System.out.println("Hola soy el metodo actualizarCliente");
         cliente = new Cliente();
         vista.getModelo().setColumnCount(0);
         vista.getModelo().setNumRows(0);
